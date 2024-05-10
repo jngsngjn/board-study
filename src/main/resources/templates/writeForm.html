@@ -1,0 +1,27 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>글쓰기</title>
+</head>
+<body>
+<h2>글쓰기</h2>
+<hr>
+<form action="/board/write" method="post" th:object="${writeForm}">
+    <div>
+        <label for="title">제목:</label>
+        <input type="text" th:field="*{title}">
+    </div>
+    <div>
+        <label for="author">작성자:</label>
+        <input type="text" th:field="*{author}">
+    </div>
+    <div>
+        <label for="content">내용:</label>
+        <textarea th:field="*{content}" rows="10"></textarea>
+    </div>
+    <div>
+        <button type="submit">등록</button>
+    </div>
+</form>
+</body>
+</html>

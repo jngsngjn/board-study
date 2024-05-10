@@ -1,0 +1,20 @@
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+
+<h2 th:text="${board.title}"></h2>
+<p>작성자: <span th:text="${board.author}"></span></p>
+<p>내용: <span th:text="${board.content}"></span></p>
+<p>작성일: <span th:text="${board.createdDate}"></span></p>
+<p>수정일: <span th:text="${board.modifiedDate}"></span></p>
+<p>조회수: <span th:text="${board.viewCount}"></span></p>
+<a th:href="@{/board/{boardId}/edit(boardId=${board.boardId})}">수정</a>
+<form th:action="@{/board/{boardId}/delete(boardId=${board.boardId})}" method="post">
+    <button type="submit">삭제</button>
+</form>
+<a href="/board">뒤로 가기</a>
+</body>
+</html>
