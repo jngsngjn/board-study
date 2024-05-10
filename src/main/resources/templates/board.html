@@ -6,7 +6,7 @@
 <body>
 <h2>게시판</h2>
 <hr>
-<form action="/board/search" method="get">
+<form action="/boards/search" method="get">
     <input type="text" name="keyword" placeholder="검색어를 입력하세요">
     <button type="submit">검색</button>
 </form>
@@ -26,7 +26,7 @@
     <tr th:each="board : ${boardList}">
         <td th:text="${board.boardId}"></td>
         <td>
-            <a th:href="@{/board/{boardId}(boardId=${board.boardId})}" th:text="${board.title}"></a>
+            <a th:href="@{/boards/{boardId}(boardId=${board.boardId})}" th:text="${board.title}"></a>
         </td>
         <td th:text="${board.author}"></td>
         <td th:text="${board.createdDate}"></td>
@@ -39,17 +39,17 @@
 <div>
     <ul>
         <li th:if="${boardList.hasPrevious()}">
-            <a th:href="@{/board(page=${boardList.number})}">이전</a>
+            <a th:href="@{/boards(page=${boardList.number})}">이전</a>
         </li>
         <li th:each="page : ${#numbers.sequence(1, boardList.totalPages)}" th:class="${page == boardList.number + 1} ? 'active'">
-            <a th:href="@{/board(page=${page})}" th:text="${page}"></a>
+            <a th:href="@{/boards(page=${page})}" th:text="${page}"></a>
         </li>
         <li th:if="${boardList.hasNext()}">
-            <a th:href="@{/board(page=${boardList.number + 2})}">다음</a>
+            <a th:href="@{/boards(page=${boardList.number + 2})}">다음</a>
         </li>
     </ul>
 </div>
 <br>
-<a href="/board/write">글쓰기</a>
+<a href="/boards/write">글쓰기</a>
 </body>
 </html>

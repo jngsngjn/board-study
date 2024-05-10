@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/board")
+@RequestMapping("/boards")
 public class BoardController {
 
     private final BoardService boardService;
@@ -31,7 +31,7 @@ public class BoardController {
         BoardOne board = boardService.findBoardOne(boardId);
 
         if (board == null) {
-            return "rediect:/board";
+            return "rediect:/boards";
         }
 
         boardService.viewBoardOne(boardId);
@@ -50,7 +50,7 @@ public class BoardController {
     @PostMapping("/write")
     public String write(@ModelAttribute BoardForm boardForm) {
         boardService.writeBoard(boardForm);
-        return "redirect:/board";
+        return "redirect:/boards";
     }
 
     // 수정 페이지 조회
@@ -62,18 +62,18 @@ public class BoardController {
     }
 
     // 글 수정
-    @PostMapping("/{boardId}/edit")
+    @PutMapping("/{boardId}/edit")
     public String edit(@PathVariable Long boardId, @ModelAttribute BoardForm boardForm, RedirectAttributes redirectAttributes) {
         boardService.updateBoard(boardId, boardForm);
 
         redirectAttributes.addAttribute(boardId);
-        return "redirect:/board/{boardId}";
+        return "redirect:/boards/{boardId}";
     }
 
     // 글 삭제
-    @PostMapping("/{boardId}/delete")
+    @DeleteMapping("/{boardId}/delete")
     public String deleteOne(@PathVariable Long boardId) {
         boardService.delete(boardId);
-        return "redirect:/board";
+        return "redirect:/boards";
     }
 }

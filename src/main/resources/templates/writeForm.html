@@ -6,7 +6,7 @@
 <body>
 <h2>글쓰기</h2>
 <hr>
-<form action="/board/write" method="post" th:object="${writeForm}">
+<form action="/boards/write" method="post" th:object="${writeForm}">
     <div>
         <label for="title">제목:</label>
         <input type="text" th:field="*{title}">

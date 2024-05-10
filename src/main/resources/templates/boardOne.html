@@ -11,10 +11,11 @@
 <p>작성일: <span th:text="${board.createdDate}"></span></p>
 <p>수정일: <span th:text="${board.modifiedDate}"></span></p>
 <p>조회수: <span th:text="${board.viewCount}"></span></p>
-<a th:href="@{/board/{boardId}/edit(boardId=${board.boardId})}">수정</a>
-<form th:action="@{/board/{boardId}/delete(boardId=${board.boardId})}" method="post">
+<a th:href="@{/boards/{boardId}/edit(boardId=${board.boardId})}">수정</a>
+<form th:action="@{/boards/{boardId}/delete(boardId=${board.boardId})}" method="post">
+    <input type="hidden" name="_method" value="delete" />
     <button type="submit">삭제</button>
 </form>
-<a href="/board">뒤로 가기</a>
+<a href="/boards">뒤로 가기</a>
 </body>
 </html>
