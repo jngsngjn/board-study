@@ -11,6 +11,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @Transactional
 public class BoardService {
@@ -23,11 +25,11 @@ public class BoardService {
 
     public Page<BoardList> findBoardList(int page) {
         Pageable pageable = PageRequest.of(page, 10);
-        return boardRepository.findByDeletedFalse(pageable);
+        return boardRepository.findAllBy(pageable);
     }
 
     public BoardOne findOneBoard(Long boardId) {
-        return boardRepository.findByDeletedFalseAndBoardId(boardId);
+        return boardRepository.findByBoardId(boardId);
     }
 
     public void writeBoard(BoardForm boardForm) {
@@ -44,11 +46,11 @@ public class BoardService {
     }
 
     public void updateBoard(Long boardId, BoardForm boardForm) {
-        Board board = boardRepository.findByBoardIdAndDeletedFalse(boardId);
-        board.setTitle(boardForm.getTitle());
-        board.setContent(boardForm.getContent());
-        board.setAuthor(boardForm.getAuthor());
-        boardRepository.save(board);
+        Optional<Board> board = boardRepository.findById(boardId);
+        board.get().setTitle(boardForm.getTitle());
+        board.get().setContent(boardForm.getContent());
+        board.get().setAuthor(boardForm.getAuthor());
+        boardRepository.save(board.get());
     }
 
     public void delete(Long boardId) {

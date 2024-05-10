@@ -5,6 +5,5 @@ CREATE TABLE board (
     content TEXT NOT NULL,
     created_date TIMESTAMP NOT NULL,
     modified_date TIMESTAMP NOT NULL,
-    view_count INT NOT NULL DEFAULT 0,
-    deleted BOOLEAN NOT NULL DEFAULT FALSE
+    view_count INT NOT NULL DEFAULT 0
 );

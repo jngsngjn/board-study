@@ -15,15 +15,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface BoardRepository extends JpaRepository<Board, Long> {
 
-    Page<BoardList> findByDeletedFalse(Pageable pageable);
+    Page<BoardList> findAllBy(Pageable pageable);
 
-    BoardOne findByDeletedFalseAndBoardId(Long boardId);
-    Board findByBoardIdAndDeletedFalse(Long boardId);
+    BoardOne findByBoardId(Long boardId);
 
     @Modifying
     @Query("UPDATE Board b SET b.viewCount = b.viewCount + 1 WHERE b.boardId = :boardId")
     @Transactional
     void incrementViewCount(@Param("boardId") Long boardId);
-
 
 }

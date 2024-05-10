@@ -29,8 +29,4 @@ public class Board {
 
     @Column(nullable = false, columnDefinition = "INT DEFAULT 0")
     private int viewCount;
-
-    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
-    private boolean deleted;
-
 }
