@@ -1,8 +1,8 @@
-package hello.boardstudy.repository;
+package hello.boardstudy.repository.board;
 
-import hello.boardstudy.entity.Board;
-import hello.boardstudy.entity.BoardList;
-import hello.boardstudy.entity.BoardOne;
+import hello.boardstudy.entity.board.Board;
+import hello.boardstudy.entity.board.BoardList;
+import hello.boardstudy.entity.board.BoardOne;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,15 +13,15 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public interface BoardRepository extends JpaRepository<Board, Long> {
+public interface BoardRepository extends JpaRepository<Board, Integer> {
 
     Page<BoardList> findAllBy(Pageable pageable);
 
-    BoardOne findByBoardId(Long boardId);
+    BoardOne findByBoardId(Integer boardId);
 
     @Modifying
     @Query("UPDATE Board b SET b.viewCount = b.viewCount + 1 WHERE b.boardId = :boardId")
     @Transactional
-    void incrementViewCount(@Param("boardId") Long boardId);
+    void incrementViewCount(@Param("boardId") Integer boardId);
 
 }

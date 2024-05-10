@@ -1,10 +1,10 @@
-package hello.boardstudy.service;
+package hello.boardstudy.service.board;
 
-import hello.boardstudy.entity.Board;
+import hello.boardstudy.entity.board.Board;
 import hello.boardstudy.form.BoardForm;
-import hello.boardstudy.entity.BoardList;
-import hello.boardstudy.entity.BoardOne;
-import hello.boardstudy.repository.BoardRepository;
+import hello.boardstudy.entity.board.BoardList;
+import hello.boardstudy.entity.board.BoardOne;
+import hello.boardstudy.repository.board.BoardRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -28,12 +28,12 @@ public class BoardService {
     }
 
     // 특정 게시글 조회
-    public BoardOne findBoardOne(Long boardId) {
+    public BoardOne findBoardOne(Integer boardId) {
         return boardRepository.findByBoardId(boardId);
     }
 
     // 조회수 업데이트
-    public void viewBoardOne(Long boardId) {
+    public void viewBoardOne(Integer boardId) {
         boardRepository.incrementViewCount(boardId);
     }
 
@@ -48,7 +48,7 @@ public class BoardService {
     }
 
     // 글 수정
-    public void updateBoard(Long boardId, BoardForm boardForm) {
+    public void updateBoard(Integer boardId, BoardForm boardForm) {
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new RuntimeException("Board not found"));
 
@@ -60,7 +60,7 @@ public class BoardService {
     }
 
     // 글 삭제
-    public void delete(Long boardId) {
+    public void delete(Integer boardId) {
         boardRepository.deleteById(boardId);
     }
 }

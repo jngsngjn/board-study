@@ -7,6 +7,7 @@ gradlew.bat
 settings.gradle
 gradlew
 application.properties
+/src/test
 
 ### STS ###
 .apt_generated

@@ -20,6 +20,7 @@
         <textarea th:field="*{content}" rows="10"></textarea>
     </div>
     <div>
+        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
         <button type="submit">등록</button>
     </div>
 </form>

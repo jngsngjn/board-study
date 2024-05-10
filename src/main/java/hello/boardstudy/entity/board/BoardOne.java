@@ -1,9 +1,9 @@
-package hello.boardstudy.entity;
+package hello.boardstudy.entity.board;
 
 import java.time.LocalDateTime;
 
 public interface BoardOne {
-    Long getBoardId();
+    Integer getBoardId();
     String getTitle();
     String getAuthor();
     String getContent();
