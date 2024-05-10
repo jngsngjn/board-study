@@ -1,8 +1,8 @@
 package hello.boardstudy.repository;
 
 import hello.boardstudy.entity.Board;
-import hello.boardstudy.projection.BoardList;
-import hello.boardstudy.projection.BoardOne;
+import hello.boardstudy.entity.BoardList;
+import hello.boardstudy.entity.BoardOne;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

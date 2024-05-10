@@ -27,6 +27,6 @@ public class Board {
     @UpdateTimestamp
     private LocalDateTime modifiedDate;
 
-    @Column(nullable = false, columnDefinition = "INT DEFAULT 0")
+    @Column(columnDefinition = "INT DEFAULT 0")
     private int viewCount;
 }

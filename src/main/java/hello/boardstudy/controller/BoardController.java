@@ -1,7 +1,7 @@
 package hello.boardstudy.controller;
 
 import hello.boardstudy.form.BoardForm;
-import hello.boardstudy.projection.BoardOne;
+import hello.boardstudy.entity.BoardOne;
 import hello.boardstudy.service.BoardService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +28,7 @@ public class BoardController {
     // 특정 게시글 조회
     @GetMapping("/{boardId}")
     public String boardOne(@PathVariable Long boardId, Model model) {
-        BoardOne board = boardService.findOneBoard(boardId);
+        BoardOne board = boardService.findBoardOne(boardId);
 
         if (board == null) {
             return "rediect:/board";
@@ -56,7 +56,7 @@ public class BoardController {
     // 수정 페이지 조회
     @GetMapping("/{boardId}/edit")
     public String editForm(@PathVariable Long boardId, Model model) {
-        BoardOne board = boardService.findOneBoard(boardId);
+        BoardOne board = boardService.findBoardOne(boardId);
         model.addAttribute("board", board);
         return "editForm";
     }

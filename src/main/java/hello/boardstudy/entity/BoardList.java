@@ -1,13 +1,11 @@
-package hello.boardstudy.projection;
+package hello.boardstudy.entity;
 
 import java.time.LocalDateTime;
 
-public interface BoardOne {
+public interface BoardList {
     Long getBoardId();
     String getTitle();
     String getAuthor();
-    String getContent();
     LocalDateTime getCreatedDate();
-    LocalDateTime getModifiedDate();
     int getViewCount();
 }
