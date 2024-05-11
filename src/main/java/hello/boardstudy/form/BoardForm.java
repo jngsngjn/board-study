@@ -11,4 +11,5 @@ public class BoardForm {
 
     private String title;
     private String content;
+    private Integer authorId;
 }

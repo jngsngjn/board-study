@@ -24,7 +24,7 @@ public class BoardService {
     // 모든 게시글 조회
     public Page<BoardList> findBoardList(int page) {
         Pageable pageable = PageRequest.of(page, 10);
-        return boardRepository.findAllBy(pageable);
+        return boardRepository.findBoardListWithAuthorLoginId(pageable);
     }
 
     // 특정 게시글 조회
@@ -42,6 +42,7 @@ public class BoardService {
         Board board = new Board();
         board.setTitle(boardForm.getTitle());
         board.setContent(boardForm.getContent());
+        board.setAuthorId(boardForm.getAuthorId());
 
         boardRepository.save(board);
     }

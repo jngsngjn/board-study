@@ -15,7 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface BoardRepository extends JpaRepository<Board, Integer> {
 
-    Page<BoardList> findAllBy(Pageable pageable);
+    @Query("SELECT b.boardId AS boardId, b.title AS title, u.loginId AS loginId, b.createdDate AS createdDate, b.viewCount AS viewCount " +
+            "FROM Board b " +
+            "JOIN User u ON b.authorId = u.userId")
+    Page<BoardList> findBoardListWithAuthorLoginId(Pageable pageable);
 
     BoardOne findByBoardId(Integer boardId);
 

@@ -32,7 +32,7 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(registerForm.getPassword()));
         user.setName(registerForm.getName());
         user.setEmail(registerForm.getEmail());
-        user.setRole(registerForm.getLoginId().equals("admin") ? ADMIN : USER);
+        user.setRole(registerForm.getLoginId().equals("admin") ? ROLE_ADMIN : ROLE_USER);
 
         userRepository.save(user);
         return true;

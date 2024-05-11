@@ -2,7 +2,9 @@ package hello.boardstudy.controller.board;
 
 import hello.boardstudy.form.BoardForm;
 import hello.boardstudy.entity.board.BoardOne;
+import hello.boardstudy.security.CustomUserDetails;
 import hello.boardstudy.service.board.BoardService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,7 +33,7 @@ public class BoardController {
         BoardOne board = boardService.findBoardOne(boardId);
 
         if (board == null) {
-            return "rediect:/boards";
+            return "redirect:/boards";
         }
 
         boardService.viewBoardOne(boardId);
@@ -48,7 +50,8 @@ public class BoardController {
 
     // 글쓰기
     @PostMapping("/write")
-    public String write(@ModelAttribute BoardForm boardForm) {
+    public String write(@ModelAttribute BoardForm boardForm, @AuthenticationPrincipal CustomUserDetails userDetails) {
+        boardForm.setAuthorId(userDetails.getUserId());
         boardService.writeBoard(boardForm);
         return "redirect:/boards";
     }

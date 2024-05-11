@@ -22,12 +22,12 @@
     </thead>
 
     <tbody>
-    <tr th:each="board : ${boardList}">
-        <td th:text="${board.boardId}"></td>
+    <tr th:each="board, iterStat : ${boardList}">
+        <td th:text="${iterStat.count}"></td>
         <td>
             <a th:href="@{/boards/{boardId}(boardId=${board.boardId})}" th:text="${board.title}"></a>
         </td>
-        <td th:text="${board.authorId}"></td>
+        <td th:text="${board.loginId}"></td>
         <td th:text="${board.createdDate}"></td>
         <td th:text="${board.viewCount}"></td>
     </tr>

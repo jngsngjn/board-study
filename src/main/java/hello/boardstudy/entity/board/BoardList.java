@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public interface BoardList {
     Integer getBoardId();
     String getTitle();
-    Integer getAuthorId();
+    String getLoginId();
     LocalDateTime getCreatedDate();
     int getViewCount();
 }

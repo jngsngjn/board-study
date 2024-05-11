@@ -8,6 +8,7 @@ settings.gradle
 gradlew
 application.properties
 /src/test
+memo.txt
 
 ### STS ###
 .apt_generated
