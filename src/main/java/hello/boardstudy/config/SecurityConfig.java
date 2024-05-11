@@ -25,7 +25,10 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
         );
 
-        http.formLogin(auth -> auth.loginPage("/login") // 로그인 페이지 경로 (GET)
+        http.formLogin(auth -> auth
+
+                // 로그인 페이지 경로 (GET)
+                .loginPage("/login")
 
                 // 로그인 처리 경로 (POST)
                 .loginProcessingUrl("/login")
@@ -33,6 +36,13 @@ public class SecurityConfig {
                 // 로그인 성공 시 경로 (GET)
                 .defaultSuccessUrl("/boards", true)
                 .permitAll()
+        );
+
+        http.logout(auth -> auth
+                // 로그아웃 경로 (POST)
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/boards")
+                .permitAll(false)
         );
 
         return http.build();

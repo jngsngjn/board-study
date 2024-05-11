@@ -5,6 +5,10 @@
 </head>
 <body>
 <h2>게시판</h2>
+
+<h2 th:if="${name != null}"><span th:text="${name}"></span>님 환영합니다.</h2>
+
+
 <form action="/boards/search" method="get">
     <input type="text" name="keyword" placeholder="검색어를 입력하세요">
     <button type="submit">검색</button>
@@ -50,6 +54,10 @@
 </div>
 <br>
 <a href="/boards/write">글쓰기</a>
-<a href="/login">로그인</a>
+
+<a href="/login" th:if="${name == null}">로그인</a>
+<form th:unless="${name == null}" th:action="@{/logout}" method="post">
+    <input type="submit" value="로그아웃"/>
+</form>
 </body>
 </html>

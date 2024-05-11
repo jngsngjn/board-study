@@ -15,6 +15,11 @@ public class CustomUserDetails implements UserDetails {
         this.user = user;
     }
 
+    // 현재 인증된 사용자의 이름 조회
+    public String getName() {
+        return user.getName();
+    }
+
     // 현재 인증된 사용자의 아이디(PK) 조회
     public Integer getUserId() {
         return user.getUserId();

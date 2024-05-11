@@ -22,8 +22,16 @@ public class BoardController {
 
     // 게시판 페이지 조회
     @GetMapping
-    public String boardPage(@RequestParam(defaultValue = "1") int page, Model model) {
+    public String boardPage(@RequestParam(defaultValue = "1") int page,
+                            @AuthenticationPrincipal CustomUserDetails userDetails,
+                            Model model) {
+
         model.addAttribute("boardList", boardService.findBoardList(page - 1));
+
+        // 로그인한 사용자일 때만
+        if (userDetails != null) {
+            model.addAttribute("name", userDetails.getName());
+        }
         return "board";
     }
 
