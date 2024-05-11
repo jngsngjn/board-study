@@ -16,7 +16,6 @@ public class Board {
     private Integer boardId;
 
     private String title;
-    private String author;
     private Integer authorId;
 
     @Lob

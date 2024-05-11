@@ -16,7 +16,8 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers("/", "/index.html").permitAll()
-                .requestMatchers("/boards", "/register").permitAll()
+                .requestMatchers("/boards/write", "/boards/{boardId}/delete", "/boards/{boardId}/edit").authenticated()
+                .requestMatchers("/boards", "/boards/{boardId}", "/register").permitAll()
                 .anyRequest().authenticated()
         );
 

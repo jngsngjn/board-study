@@ -41,7 +41,6 @@ public class BoardService {
     public void writeBoard(BoardForm boardForm) {
         Board board = new Board();
         board.setTitle(boardForm.getTitle());
-        board.setAuthor(boardForm.getAuthor());
         board.setContent(boardForm.getContent());
 
         boardRepository.save(board);
@@ -54,7 +53,6 @@ public class BoardService {
 
         board.setTitle(boardForm.getTitle());
         board.setContent(boardForm.getContent());
-        board.setAuthor(boardForm.getAuthor());
 
         boardRepository.save(board);
     }

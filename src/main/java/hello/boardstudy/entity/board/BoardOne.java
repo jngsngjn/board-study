@@ -5,7 +5,6 @@ import java.time.LocalDateTime;
 public interface BoardOne {
     Integer getBoardId();
     String getTitle();
-    String getAuthor();
     String getContent();
     LocalDateTime getCreatedDate();
     LocalDateTime getModifiedDate();
