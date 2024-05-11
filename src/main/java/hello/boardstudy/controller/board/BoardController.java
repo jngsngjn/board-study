@@ -29,7 +29,8 @@ public class BoardController {
 
     // 특정 게시글 조회
     @GetMapping("/{boardId}")
-    public String boardOne(@PathVariable Integer boardId, Model model) {
+    public String boardOne(@PathVariable Integer boardId, Model model,
+                           @AuthenticationPrincipal(expression = "#this == 'anonymousUser' ? null : #this") CustomUserDetails userDetails) {
         BoardOne board = boardService.findBoardOne(boardId);
 
         if (board == null) {
@@ -38,6 +39,7 @@ public class BoardController {
 
         boardService.viewBoardOne(boardId);
         model.addAttribute("board", board);
+        model.addAttribute("authentication", userDetails);
         return "boardOne";
     }
 

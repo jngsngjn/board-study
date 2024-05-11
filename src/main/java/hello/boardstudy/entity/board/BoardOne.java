@@ -9,4 +9,6 @@ public interface BoardOne {
     LocalDateTime getCreatedDate();
     LocalDateTime getModifiedDate();
     int getViewCount();
+
+    Integer getAuthorId();
 }
