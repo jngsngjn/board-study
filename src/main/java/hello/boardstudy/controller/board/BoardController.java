@@ -30,14 +30,18 @@ public class BoardController {
     // 특정 게시글 조회
     @GetMapping("/{boardId}")
     public String boardOne(@PathVariable Integer boardId, Model model,
-                           @AuthenticationPrincipal(expression = "#this == 'anonymousUser' ? null : #this") CustomUserDetails userDetails) {
+                           @AuthenticationPrincipal(expression = "#this == 'anonymousUser' ? null : #this")
+                           CustomUserDetails userDetails) {
+
         BoardOne board = boardService.findBoardOne(boardId);
 
         if (board == null) {
             return "redirect:/boards";
         }
 
+        // 조회수 증가
         boardService.viewBoardOne(boardId);
+
         model.addAttribute("board", board);
         model.addAttribute("authentication", userDetails);
         return "boardOne";

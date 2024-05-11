@@ -15,10 +15,18 @@ public class CustomUserDetails implements UserDetails {
         this.user = user;
     }
 
+    // 현재 인증된 사용자의 아이디(PK) 조회
     public Integer getUserId() {
         return user.getUserId();
     }
 
+    // 현재 인증된 사용자가 ADMIN ?
+    public boolean isAdmin() {
+        return getAuthorities().stream()
+                .anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"));
+    }
+
+    // 권한 정보 반환
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> collection = new ArrayList<>();
@@ -37,6 +45,7 @@ public class CustomUserDetails implements UserDetails {
         return user.getPassword();
     }
 
+    // 로그인 아이디 반환
     @Override
     public String getUsername() {
         return user.getLoginId();

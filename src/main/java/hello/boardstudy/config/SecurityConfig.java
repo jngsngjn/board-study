@@ -16,13 +16,21 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests(auth -> auth
                 .requestMatchers("/", "/index.html").permitAll()
+
+                // 글쓰기, 삭제, 수정 -> 인증된 사용자만
                 .requestMatchers("/boards/write", "/boards/{boardId}/delete", "/boards/{boardId}/edit").authenticated()
+
+                // 게시판 페이지, 특정 게시글, 회원가입 -> 모든 사용자
                 .requestMatchers("/boards", "/boards/{boardId}", "/register").permitAll()
                 .anyRequest().authenticated()
         );
 
-        http.formLogin(auth -> auth.loginPage("/login")
+        http.formLogin(auth -> auth.loginPage("/login") // 로그인 페이지 경로 (GET)
+
+                // 로그인 처리 경로 (POST)
                 .loginProcessingUrl("/login")
+
+                // 로그인 성공 시 경로 (GET)
                 .defaultSuccessUrl("/boards", true)
                 .permitAll()
         );
