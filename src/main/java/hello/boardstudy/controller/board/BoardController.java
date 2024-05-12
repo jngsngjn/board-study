@@ -64,7 +64,8 @@ public class BoardController {
 
     // 글쓰기
     @PostMapping("/write")
-    public String write(@ModelAttribute BoardForm boardForm, @AuthenticationPrincipal CustomUserDetails userDetails) {
+    public String write(@ModelAttribute BoardForm boardForm,
+                        @AuthenticationPrincipal CustomUserDetails userDetails) {
         boardForm.setAuthorId(userDetails.getUserId());
         boardService.writeBoard(boardForm);
         return "redirect:/boards";

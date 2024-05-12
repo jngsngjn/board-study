@@ -28,10 +28,10 @@ public class SecurityConfig {
         http.formLogin(auth -> auth
 
                 // 로그인 페이지 경로 (GET)
-                .loginPage("/login")
+                .loginPage("/boards")
 
                 // 로그인 처리 경로 (POST)
-                .loginProcessingUrl("/login")
+                .loginProcessingUrl("/boards/login")
 
                 // 로그인 성공 시 경로 (GET)
                 .defaultSuccessUrl("/boards", true)
