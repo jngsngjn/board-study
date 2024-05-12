@@ -2,6 +2,7 @@ package hello.boardstudy.controller.board;
 
 import hello.boardstudy.form.BoardForm;
 import hello.boardstudy.entity.board.BoardOne;
+import hello.boardstudy.form.RegisterForm;
 import hello.boardstudy.security.CustomUserDetails;
 import hello.boardstudy.service.board.BoardService;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -32,6 +33,8 @@ public class BoardController {
         if (userDetails != null) {
             model.addAttribute("name", userDetails.getName());
         }
+        model.addAttribute("registerForm", new RegisterForm());
+        model.addAttribute("writeForm", new BoardForm());
         return "board";
     }
 
@@ -53,13 +56,6 @@ public class BoardController {
         model.addAttribute("board", board);
         model.addAttribute("authentication", userDetails);
         return "boardOne";
-    }
-
-    // 글쓰기 페이지 조회
-    @GetMapping("/write")
-    public String writeForm(Model model) {
-        model.addAttribute("writeForm", new BoardForm());
-        return "writeForm";
     }
 
     // 글쓰기

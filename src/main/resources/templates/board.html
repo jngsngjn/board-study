@@ -5,10 +5,52 @@
     <link rel="stylesheet" type="text/css" href="/css/board.css">
 </head>
 <body>
+<!-- 로그인 모달 -->
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <form action="/login" method="post" class="form">
+            <input type="text" name="username" placeholder="아이디"> <br>
+            <input type="password" name="password" placeholder="비밀번호">
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}"/> <br>
+            <button type="submit">로그인</button>
+        </form>
+    </div>
+</div>
+
+<!-- 회원가입 모달 -->
+<div id="registerModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <form action="/register" method="post" th:object="${registerForm}" class="form">
+            <input type="text" th:field="*{loginId}" placeholder="아이디"> <br>
+            <input type="password" th:field="*{password}" placeholder="비밀번호"> <br>
+            <input type="text" th:field="*{name}" placeholder="이름"> <br>
+            <input type="email" th:field="*{email}" placeholder="이메일">
+
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}"/> <br>
+            <button type="submit">회원가입</button>
+        </form>
+    </div>
+</div>
+
+<!-- 글쓰기 모달 -->
+<div id="writeModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <form action="/boards/write" method="post" th:object="${writeForm}" class="form">
+                <input type="text" th:field="*{title}" placeholder="제목"> <br>
+                <textarea th:field="*{content}" rows="10" placeholder="내용"></textarea> <br>
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+                <button type="submit">등록</button>
+        </form>
+    </div>
+</div>
+
 <div class="container">
     <div class="user-info">
-        <a href="/login" class="btn btn-primary" th:if="${name == null}">로그인</a>
-        <a href="/register" class="btn btn-primary" th:if="${name == null}">회원가입</a>
+        <button id="loginBtn" class="btn btn-primary" th:if="${name == null}">로그인</button>
+        <button id="registerBtn" class="btn btn-primary" th:if="${name == null}">회원가입</button>
         <div th:if="${name != null}">
             <span class="welcome" th:text="${name}"></span>님 환영합니다!
             <form th:action="@{/logout}" method="post" style="display: inline;">
@@ -17,14 +59,14 @@
         </div>
     </div>
 
-    <h1 class="page-title">개발자 게시판</h1>
+    <h1 class="page-title">게시판 게시판 게시판</h1>
 
     <div class="search-write">
         <form action="/boards/search" method="get" class="search-form">
             <input type="text" name="keyword" placeholder="검색어를 입력하세요">
             <button type="submit" class="btn btn-info btn-search">검색</button>
-            <a href="/boards/write" class="btn btn-info">글쓰기</a>
         </form>
+        <button th:if="${name != null}" id="writeBtn" onclick="showWriteModal()" class="btn btn-info writeBtn">글쓰기</button>
     </div>
     <table>
         <thead>
@@ -62,5 +104,24 @@
         </ul>
     </div>
 </div>
+<script src="/js/board.js"></script>
+<script>
+    var writeModal = document.getElementById("writeModal");
+    function showWriteModal() {
+        writeModal.style.display = "block";
+    }
+
+    var writeClose = document.getElementsByClassName("close")[2];
+    writeClose.onclick = function() {
+        writeModal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+
+        if (event.target == writeModal) {
+            writeModal.style.display = "none";
+        }
+    }
+</script>
 </body>
 </html>
