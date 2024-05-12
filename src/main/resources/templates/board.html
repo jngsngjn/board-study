@@ -8,13 +8,10 @@
 <h2>게시판</h2>
 
 <h2 th:if="${name != null}"><span th:text="${name}"></span>님 환영합니다.</h2>
-<form action="/boards/login" method="post" th:if="${name == null}">
-    <input type="text" name="username" placeholder="아이디"> <br>
-    <input type="password" name="password" placeholder="비밀번호">
-    <input type="hidden" name="_csrf" th:value="${_csrf.token}"/> <br>
-    <a href="/register">회원가입</a>
-    <button type="submit">로그인</button>
-</form>
+
+
+<a href="/login" th:if="${name == null}">로그인</a>
+<a href="/register" th:if="${name == null}">회원가입</a>
 <form th:unless="${name == null}" th:action="@{/logout}" method="post">
     <input type="submit" value="로그아웃"/>
 </form>
@@ -22,6 +19,7 @@
 <form action="/boards/search" method="get">
     <input type="text" name="keyword" placeholder="검색어를 입력하세요">
     <button type="submit">검색</button>
+    <a href="/boards/write">글쓰기</a>
 </form>
 <br>
 <table>
@@ -63,6 +61,5 @@
     </ul>
 </div>
 <br>
-<a href="/boards/write">글쓰기</a>
 </body>
 </html>
