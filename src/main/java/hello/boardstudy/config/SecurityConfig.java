@@ -15,7 +15,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/index.html", "/css/**").permitAll()
+                .requestMatchers("/", "/index.html", "/css/**", "/js/**").permitAll()
 
                 // 글쓰기, 삭제, 수정 -> 인증된 사용자만
                 .requestMatchers("/boards/write", "/boards/{boardId}/delete", "/boards/{boardId}/edit").authenticated()

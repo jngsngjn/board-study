@@ -17,7 +17,6 @@ body {
     font-weight: bold;
 }
 
-
 .page-title {
     font-size: 36px;
     font-weight: 700;
@@ -94,11 +93,22 @@ a {
     color: #fff;
     text-align: center;
     margin-left: 5px;
-
 }
 
 .btn-primary:hover {
     background-color: #0056b3;
+}
+
+.btn-logout {
+    background-color: #7a3bd1;
+    color: #fff;
+    text-align: center;
+    margin-left: 5px;
+    height: 30px;
+}
+
+.btn-logout:hover {
+    background-color: #6518dc;
 }
 
 .btn-info {
@@ -117,15 +127,6 @@ a {
     width: 50px;
     margin-left: -5px;
     margin-right: -10px;
-}
-
-.btn-logout {
-    background-color: #7a3bd1;
-    color: #fff;
-}
-
-.btn-logout:hover {
-    background-color: #6518dc;
 }
 
 table {
