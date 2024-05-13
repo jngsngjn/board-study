@@ -20,7 +20,7 @@ public class UserController {
     @PostMapping
     public String register(@ModelAttribute RegisterForm registerForm) {
         if (!userService.register(registerForm)) {
-            return "registerForm";
+            return "board";
         }
 
         return "redirect:/boards";

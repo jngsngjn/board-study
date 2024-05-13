@@ -80,7 +80,9 @@
         </thead>
         <tbody>
         <tr th:each="board, iterStat : ${boardList}">
-            <td th:text="${(boardList.number * boardList.size) + iterStat.count}"></td>
+            <td>
+                <a th:href="@{/boards/{boardId}(boardId=${board.boardId})}" th:text="${(boardList.number * boardList.size) + iterStat.count}"></a>
+            </td>
             <td>
                 <a th:href="@{/boards/{boardId}(boardId=${board.boardId})}" th:text="${board.title}"></a>
             </td>

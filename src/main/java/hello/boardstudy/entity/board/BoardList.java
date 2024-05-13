@@ -1,11 +1,13 @@
 package hello.boardstudy.entity.board;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public interface BoardList {
     Integer getBoardId();
     String getTitle();
     String getLoginId();
-    LocalDateTime getCreatedDate();
+
+    LocalDate getCreatedDate();
+
     int getViewCount();
 }
