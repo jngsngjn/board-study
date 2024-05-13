@@ -12,17 +12,17 @@ $(document).ready(function() {
             },
             beforeSend: function(xhr) {
                 xhr.setRequestHeader(csrfHeader, csrfToken);
-            },
-            success: function(response) {
-                if (response.includes("인증 이메일이 전송되었습니다.")) {
-                    $("#verificationMessage").text(response);
-                } else {
-                    $("#verificationMessage").text("인증 이메일 전송에 실패했습니다.");
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error("Error:", error);
             }
-        });
+        })
+            .done(function() {
+                $("#verificationMessage").text("인증 메일이 전송되었습니다.");
+            })
+            .fail(function(xhr) {
+                if (xhr.status === 400) {
+                    $("#verificationMessage").text("잘못된 이메일 주소입니다.");
+                } else {
+                    $("#verificationMessage").text("인증 메일 전송에 실패했습니다.");
+                }
+            });
     });
 });
