@@ -17,11 +17,11 @@
         </div>
     </div>
 
-    <h1 class="page-title">개발자 게시판</h1>
+    <h1 class="page-title">이런 게 시판!</h1>
 
     <div class="search-write">
         <form action="/boards/search" method="get" class="search-form">
-            <input type="text" name="keyword" placeholder="검색어를 입력하세요">
+            <input type="text" name="keyword" placeholder="제목으로 검색">
             <button type="submit" class="btn btn-info btn-search">검색</button>
         </form>
         <a th:if="${name != null}" href="/boards/write" class="btn btn-info writeBtn">글쓰기</a>
