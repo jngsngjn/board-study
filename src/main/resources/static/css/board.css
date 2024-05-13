@@ -182,3 +182,8 @@ th {
 .pagination a:hover {
     background-color: #f8f9fa;
 }
+
+a {
+    text-decoration: none;
+    color: #333333;
+}
