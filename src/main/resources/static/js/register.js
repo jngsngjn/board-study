@@ -1,9 +1,9 @@
-var duplicateChecked = false;
+let duplicateChecked = false;
 
 function checkDuplicate() {
-    var loginId = $("#loginId").val().trim();
-    var csrfToken = $("meta[name='_csrf']").attr("content");
-    var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+    const loginId = $("#loginId").val().trim();
+    const csrfToken = $("meta[name='_csrf']").attr("content");
+    const csrfHeader = $("meta[name='_csrf_header']").attr("content");
 
     if (loginId === "") {
         alert("아이디를 입력해주세요.");
@@ -56,9 +56,9 @@ function changeLoginId() {
 
 $(document).ready(function() {
     $("#sendVerificationEmailBtn").click(function() {
-        var email = $("#email").val();
-        var csrfToken = $("meta[name='_csrf']").attr("content");
-        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+        const email = $("#email").val();
+        const csrfToken = $("meta[name='_csrf']").attr("content");
+        const csrfHeader = $("meta[name='_csrf_header']").attr("content");
 
         $.ajax({
             type: "POST",
