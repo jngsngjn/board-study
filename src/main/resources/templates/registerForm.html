@@ -8,9 +8,12 @@
 </head>
 <body>
 <form action="/register" method="post" th:object="${registerForm}" onsubmit="return validateForm()">
-    <input type="text" th:field="*{loginId}" placeholder="아이디" class="inputs" th:errorclass="error-input">
-    <button type="button" id="duplicateCheckButton" onclick="checkDuplicate()">중복 확인</button>
-    <button type="button" id="changeButton" onclick="changeLoginId()" style="display: none; margin-left: 10px;">변경</button>
+    <div class="idInput">
+        <input type="text" th:field="*{loginId}" placeholder="아이디" class="inputs" th:errorclass="error-input">
+        <button type="button" id="duplicateCheckButton" onclick="checkDuplicate()" class="checkIdBtn">중복 확인</button>
+        <button type="button" id="changeButton" onclick="changeLoginId()" class="changeBtn">변경</button>
+    </div>
+
     <div class="error" th:errors="*{loginId}"></div> <br>
 
     <input type="password" th:field="*{password}" placeholder="비밀번호" class="inputs" th:errorclass="error-input">
