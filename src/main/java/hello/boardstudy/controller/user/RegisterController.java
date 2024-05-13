@@ -1,7 +1,6 @@
 package hello.boardstudy.controller.user;
 
 import hello.boardstudy.form.RegisterForm;
-import hello.boardstudy.repository.user.UserRepository;
 import hello.boardstudy.service.user.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,11 +13,9 @@ import org.springframework.web.bind.annotation.*;
 public class RegisterController {
 
     private final UserService userService;
-    private final UserRepository userRepository;
 
-    public RegisterController(UserService userService, UserRepository userRepository) {
+    public RegisterController(UserService userService) {
         this.userService = userService;
-        this.userRepository = userRepository;
     }
 
     @GetMapping
@@ -44,6 +41,6 @@ public class RegisterController {
     @PostMapping("/check-duplicate-id")
     @ResponseBody
     public boolean checkDuplicateId(@RequestParam String loginId) {
-        return !userRepository.existsByLoginId(loginId);
+        return !userService.isDuplicateId(loginId);
     }
 }
