@@ -6,9 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Controller
@@ -27,5 +25,18 @@ public class EmailController {
 
         emailService.sendVerificationEmail(email, request);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    @GetMapping("/verify/{token}")
+    public String verifyEmail(@PathVariable String token) {
+
+        // 토큰 만료
+        if (emailService.isTokenExpired(token)) {
+            return "verifyError";
+        }
+
+        emailService.verifySuccess(token);
+
+        return "verifySuccess";
     }
 }

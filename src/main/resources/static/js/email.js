@@ -1,6 +1,12 @@
 $(document).ready(function() {
     $("#sendVerificationEmailBtn").click(function() {
         const email = $("#email").val();
+
+        if (email === "") {
+            alert("이메일을 입력해 주세요.")
+            return;
+        }
+
         const csrfToken = $("meta[name='_csrf']").attr("content");
         const csrfHeader = $("meta[name='_csrf_header']").attr("content");
 
@@ -26,3 +32,4 @@ $(document).ready(function() {
             });
     });
 });
+
