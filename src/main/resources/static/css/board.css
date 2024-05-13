@@ -88,6 +88,10 @@ a {
     box-sizing: border-box;
 }
 
+.writeBtn {
+    transform: translateY(-8px);
+}
+
 .btn-primary {
     background-color: #007bff;
     color: #fff;
