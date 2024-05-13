@@ -34,12 +34,19 @@ public class EmailService {
         String verificationLink = generateLink(token, request);
 
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(fromEmail);
-        message.setTo(email);
-        message.setSubject("이메일 인증");
-        message.setText("안녕하세요,\n\n아래 링크를 클릭하여 이메일 인증을 완료해주세요.\n\n인증 링크: " + verificationLink);
 
+        message.setFrom(fromEmail); // 발신자
+        message.setTo(email); // 수신자
+        message.setSubject("이메일 인증"); // 메일 제목
+
+        // 메일 본문
+        message.setText("안녕하세요,\n\n아래 링크를 클릭하여 이메일 인증을 완료해주세요.\n\n인증 링크: " + verificationLink);
         mailSender.send(message);
+    }
+
+    // 토큰 생성
+    private String generateToken() {
+        return UUID.randomUUID().toString();
     }
 
     // 토큰 저장
@@ -47,7 +54,9 @@ public class EmailService {
         EmailToken emailToken = new EmailToken();
         emailToken.setToken(token);
         emailToken.setEmail(email);
-        emailToken.setExpiryDate(LocalDateTime.now().plusMinutes(5));
+
+        // 만료 기간을 10분으로 설정
+        emailToken.setExpiryDate(LocalDateTime.now().plusMinutes(10));
 
         emailTokenRepository.save(emailToken);
     }
@@ -55,11 +64,6 @@ public class EmailService {
     // 인증 링크 생성
     private String generateLink(String token, HttpServletRequest request) {
         return getBaseUrl(request) + "/verify/" + token;
-    }
-
-    // 토큰 생성
-    private String generateToken() {
-        return UUID.randomUUID().toString();
     }
 
     private static String getBaseUrl(HttpServletRequest request) {
@@ -76,16 +80,6 @@ public class EmailService {
         return expiryDate.isBefore(LocalDateTime.now());
     }
 
-    public void verifySuccess(String token) {
-        emailTokenRepository.updateVerifiedByToken(token);
-    }
-
-    @Scheduled(cron = "0 * * * * ?") // 매분 실행
-    public void deleteExpiredTokens() {
-        LocalDateTime now = LocalDateTime.now();
-        emailTokenRepository.deleteByExpiryDateBefore(now);
-    }
-
     public boolean isVerifiedEmail(String email) {
         EmailToken emailToken = emailTokenRepository.findByEmail(email);
 
@@ -96,4 +90,15 @@ public class EmailService {
         return true;
     }
 
+    // 이메일의 인증된 상태로 변경
+    public void verifySuccess(String token) {
+        emailTokenRepository.updateVerifiedByToken(token);
+    }
+
+    // 1분마다 실행
+    @Scheduled(cron = "0 * * * * ?")
+    public void deleteExpiredTokens() {
+        LocalDateTime now = LocalDateTime.now();
+        emailTokenRepository.deleteByExpiryDateBefore(now);
+    }
 }
