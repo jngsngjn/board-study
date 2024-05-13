@@ -21,7 +21,7 @@ public class SecurityConfig {
                 .requestMatchers("/boards/write", "/boards/{boardId}/delete", "/boards/{boardId}/edit").authenticated()
 
                 // 게시판 페이지, 특정 게시글, 회원가입 -> 모든 사용자
-                .requestMatchers("/boards", "/boards/{boardId}", "/register").permitAll()
+                .requestMatchers("/boards", "/boards/{boardId}", "/register/**").permitAll()
                 .anyRequest().authenticated()
         );
 

@@ -3,17 +3,68 @@
     <meta charset="UTF-8">
     <title>회원가입</title>
     <link rel="stylesheet" type="text/css" href="/css/register.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-<form action="/register" method="post" th:object="${registerForm}">
-    <input type="text" th:field="*{loginId}" placeholder="아이디"> <br>
-    <input type="password" th:field="*{password}" placeholder="비밀번호"> <br>
-    <input type="text" th:field="*{name}" placeholder="이름"> <br>
-    <input type="email" th:field="*{email}" placeholder="이메일"> <br>
+<form action="/register" method="post" th:object="${registerForm}" onsubmit="return validateForm()">
+    <input type="text" th:field="*{loginId}" placeholder="아이디" class="inputs" th:errorclass="error-input">
+    <button type="button" onclick="checkDuplicate()">중복 확인</button>
+    <div class="error" th:errors="*{loginId}"></div> <br>
+
+    <input type="password" th:field="*{password}" placeholder="비밀번호" class="inputs" th:errorclass="error-input">
+    <div class="error" th:errors="*{password}"></div> <br>
+
+    <input type="text" th:field="*{name}" placeholder="이름" class="inputs" th:errorclass="error-input">
+    <div class="error" th:errors="*{name}"></div> <br>
+
+    <input type="email" th:field="*{email}" placeholder="이메일" class="inputs" th:errorclass="error-input">
+    <div class="error" th:errors="*{email}"></div> <br>
 
     <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
     <button type="submit">회원가입</button>
     <a href="/boards">뒤로 가기</a>
 </form>
+<script>
+    var duplicateChecked = false;
+    function checkDuplicate() {
+        var loginId = $("#loginId").val();
+        var csrfToken = $("input[name='_csrf']").val();
+
+        if (loginId === "") {
+            alert("아이디를 입력해주세요.");
+            return;
+        }
+
+        $.ajax({
+            url: "/register/check-duplicate-id",
+            type: "POST",
+            data: {loginId: loginId},
+            headers: {
+                "X-CSRF-TOKEN": csrfToken
+            },
+            success: function(response) {
+                if (response) {
+                    alert("사용 가능한 아이디입니다.");
+                    duplicateChecked = true;
+                } else {
+                    alert("이미 사용 중인 아이디입니다.");
+                    duplicateChecked = false;
+                }
+            },
+            error: function() {
+                alert("중복 확인 중 오류가 발생했습니다.");
+                duplicateChecked = false;
+            }
+        });
+    }
+
+    function validateForm() {
+        if (!duplicateChecked) {
+            alert("아이디 중복 확인을 완료해 주세요.");
+            return false;
+        }
+        return true;
+    }
+</script>
 </body>
 </html>

@@ -18,9 +18,7 @@ form {
     text-align: center;
 }
 
-input[type="text"],
-input[type="password"],
-input[type="email"] {
+.inputs {
     width: 100%;
     padding: 12px;
     margin-bottom: 20px;
@@ -28,6 +26,17 @@ input[type="email"] {
     border-radius: 5px;
     box-sizing: border-box;
 }
+
+/*input[type="text"],*/
+/*input[type="password"],*/
+/*input[type="email"] {*/
+/*    width: 100%;*/
+/*    padding: 12px;*/
+/*    margin-bottom: 20px;*/
+/*    border: 1px solid #ddd;*/
+/*    border-radius: 5px;*/
+/*    box-sizing: border-box;*/
+/*}*/
 
 button[type="submit"] {
     width: 100%;
@@ -55,4 +64,12 @@ a {
 
 a:hover {
     color: #007bff;
+}
+
+.error {
+    color: #dc3545;
+}
+
+.error-input {
+    border-color: #dc3545;
 }
