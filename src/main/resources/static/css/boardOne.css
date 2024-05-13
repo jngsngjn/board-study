@@ -1,0 +1,79 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: start; /* 요소들을 상단에 정렬 */
+    min-height: 100vh;
+    margin: 0;
+    padding-top: 10vh; /* 상단에 약간의 공간 추가 */
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 90%; /* 콘텐츠 너비 조절 */
+    max-width: 600px; /* 최대 너비 설정 */
+    background-color: #fff; /* 배경색 */
+    padding: 20px; /* 패딩 */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* 그림자 효과 */
+    border-radius: 8px; /* 테두리 둥글게 */
+    text-align: left; /* 텍스트 왼쪽 정렬 */
+}
+
+h2, p {
+    margin-bottom: 20px; /* 간격 조정 */
+}
+
+span {
+    font-weight: 400;
+    padding: 10px;
+    background-color: #f0f0f0; /* 예시로 배경색 추가 */
+    border-radius: 5px; /* 테두리 둥글게 */
+    margin: 10px 0;
+}
+
+div {
+    margin-top: 20px;
+    text-align: center; /* div 내부의 요소들을 중앙 정렬 */
+}
+
+div a, button[type="submit"] {
+    display: inline-block;
+    padding: 8px 16px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-right: 10px;
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+div a {
+    background-color: #007bff;
+}
+
+div a:hover {
+    background-color: #0056b3;
+}
+
+form {
+    display: inline-block;
+}
+
+button[type="submit"] {
+    background-color: #dc3545;
+    border: none;
+}
+
+button[type="submit"]:hover {
+    background-color: #c82333;
+}
+
+/* 기타 스타일은 유지하면서 "뒤로 가기" 링크에 대한 스타일만 명시 */
+a[href="/boards"] {
+    text-decoration: none; /* 밑줄 없음 */
+    font-size: 16px; /* 글자 크기 조정 */
+}
+
+a[href="/boards"]:hover {
+    text-decoration: underline; /* 마우스 오버 시 밑줄 표시 */
+}

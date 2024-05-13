@@ -2,10 +2,9 @@
 <head>
     <meta charset="UTF-8">
     <title>회원가입</title>
+    <link rel="stylesheet" type="text/css" href="/css/register.css">
 </head>
 <body>
-<h2>회원가입</h2>
-<hr>
 <form action="/register" method="post" th:object="${registerForm}">
     <input type="text" th:field="*{loginId}" placeholder="아이디"> <br>
     <input type="password" th:field="*{password}" placeholder="비밀번호"> <br>

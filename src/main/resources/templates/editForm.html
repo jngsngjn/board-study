@@ -1,38 +1,21 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Board Edit</title>
+    <title>글 수정</title>
+    <link rel="stylesheet" type="text/css" href="/css/writeForm.css">
 </head>
 <body>
 <h2>게시글 수정</h2>
-<div></div>
+<hr>
 <form th:action="@{/boards/{boardId}/edit(boardId=${board.boardId})}" method="post" th:object="${board}">
     <input type="hidden" name="_method" value="put" />
+    <input type="text" th:field="*{title}" placeholder="제목"> <br>
+    <textarea rows="10" th:field="*{content}" placeholder="내용"></textarea> <br>
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
     <div>
-        <label for="title">제목:</label>
-        <input type="text" th:field="*{title}" required>
-    </div>
-    <div>
-        <label for="author">작성자:</label>
-<!--        <input type="text" th:field="*{author}" required>-->
-    </div>
-    <div>
-        <label for="content">내용:</label>
-        <textarea rows="10" th:field="*{content}" required></textarea>
-    </div>
-    <div>
-        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
         <button type="submit">수정</button>
         <a href="/boards">취소</a>
     </div>
 </form>
-
-<hr>
-
-<h3>게시글 정보</h3>
-<p>작성일: <span th:text="${board.createdDate}"></span></p>
-<p>수정일: <span th:text="${board.modifiedDate}"></span></p>
-<p>조회수: <span th:text="${board.viewCount}"></span></p>
-
 </body>
 </html>

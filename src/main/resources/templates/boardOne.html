@@ -1,25 +1,29 @@
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>게시글</title>
+    <link rel="stylesheet" type="text/css" href="/css/boardOne.css">
 </head>
 <body>
+<div class="container">
+    <p>제목 <span th:text="${board.title}"></span></p>
+    <p>내용 <span th:text="${board.content}"></span></p>
+    <hr>
+    <p>작성일 <span th:text="${board.createdDate}"></span></p>
+    <p>수정일 <span th:text="${board.modifiedDate}"></span></p>
+    <p>조회수 <span th:text="${board.viewCount}"></span></p>
 
-<h2 th:text="${board.title}"></h2>
-<p>내용: <span th:text="${board.content}"></span></p>
-<p>작성일: <span th:text="${board.createdDate}"></span></p>
-<p>수정일: <span th:text="${board.modifiedDate}"></span></p>
-<p>조회수: <span th:text="${board.viewCount}"></span></p>
+    <div th:if="${authentication != null && (authentication.userId == board.authorId || authentication.isAdmin())}">
+        <a th:href="@{/boards/{boardId}/edit(boardId=${board.boardId})}">수정</a>
+        <form th:action="@{/boards/{boardId}/delete(boardId=${board.boardId})}" method="post">
+            <input type="hidden" name="_method" value="delete" />
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+            <button type="submit">삭제</button>
+        </form>
+    </div>
 
-<div th:if="${authentication != null && (authentication.userId == board.authorId || authentication.isAdmin())}">
-    <a th:href="@{/boards/{boardId}/edit(boardId=${board.boardId})}">수정</a>
-    <form th:action="@{/boards/{boardId}/delete(boardId=${board.boardId})}" method="post">
-        <input type="hidden" name="_method" value="delete" />
-        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
-        <button type="submit">삭제</button>
-    </form>
+    <a href="/boards">뒤로 가기</a>
 </div>
-
-<a href="/boards">뒤로 가기</a>
 </body>
+
 </html>
