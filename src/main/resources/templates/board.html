@@ -23,8 +23,8 @@
         <form action="/boards/search" method="get" class="search-form">
             <input type="text" name="keyword" placeholder="검색어를 입력하세요">
             <button type="submit" class="btn btn-info btn-search">검색</button>
-            <a href="/boards/write" class="btn btn-info">글쓰기</a>
         </form>
+        <a th:if="${name != null}" href="/boards/write" class="btn btn-info">글쓰기</a>
     </div>
     <table>
         <thead>

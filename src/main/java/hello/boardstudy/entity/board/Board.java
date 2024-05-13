@@ -5,7 +5,7 @@ import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Data
 @Entity
@@ -22,10 +22,10 @@ public class Board {
     private String content;
 
     @CreationTimestamp
-    private LocalDateTime createdDate;
+    private LocalDate createdDate;
 
     @UpdateTimestamp
-    private LocalDateTime modifiedDate;
+    private LocalDate modifiedDate;
 
     @Column(columnDefinition = "INT DEFAULT 0")
     private int viewCount;
