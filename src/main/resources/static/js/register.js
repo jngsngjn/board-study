@@ -2,7 +2,8 @@ var duplicateChecked = false;
 
 function checkDuplicate() {
     var loginId = $("#loginId").val().trim();
-    var csrfToken = $("input[name='_csrf']").val();
+    var csrfToken = $("meta[name='_csrf']").attr("content");
+    var csrfHeader = $("meta[name='_csrf_header']").attr("content");
 
     if (loginId === "") {
         alert("아이디를 입력해주세요.");
@@ -14,8 +15,8 @@ function checkDuplicate() {
         url: "/register/check-duplicate-id",
         type: "POST",
         data: {loginId: loginId},
-        headers: {
-            "X-CSRF-TOKEN": csrfToken
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader(csrfHeader, csrfToken);
         },
         success: function(response) {
             if (response) {
@@ -52,3 +53,32 @@ function changeLoginId() {
     $("#changeButton").hide();
     duplicateChecked = false;
 }
+
+$(document).ready(function() {
+    $("#sendVerificationEmailBtn").click(function() {
+        var email = $("#email").val();
+        var csrfToken = $("meta[name='_csrf']").attr("content");
+        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+
+        $.ajax({
+            type: "POST",
+            url: "/send-verification-email",
+            data: {
+                email: email
+            },
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader(csrfHeader, csrfToken);
+            },
+            success: function(response) {
+                if (response.includes("인증 이메일이 전송되었습니다.")) {
+                    $("#verificationMessage").text(response);
+                } else {
+                    $("#verificationMessage").text("인증 이메일 전송에 실패했습니다.");
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("Error:", error);
+            }
+        });
+    });
+});

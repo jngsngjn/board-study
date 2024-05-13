@@ -5,6 +5,8 @@
     <link rel="stylesheet" type="text/css" href="/css/register.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/js/register.js"></script>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
 <body>
 <form action="/register" method="post" th:object="${registerForm}" onsubmit="return validateForm()">
@@ -24,8 +26,9 @@
 
     <input type="email" th:field="*{email}" placeholder="이메일" class="inputs" th:errorclass="error-input">
     <div class="error" th:errors="*{email}"></div> <br>
+    <button type="button" id="sendVerificationEmailBtn">인증 이메일 전송</button>
+    <div id="verificationMessage"></div> <br>
 
-    <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
     <button type="submit">회원가입</button>
     <a href="/boards">뒤로 가기</a>
 </form>
