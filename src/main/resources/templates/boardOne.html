@@ -7,6 +7,10 @@
 </head>
 <body>
 <div class="container">
+    <div th:if="${editMessage}">
+        <p th:text="${editMessage}"></p>
+    </div>
+
     <p>제목 <span th:text="${board.title}"></span></p>
     <p>내용 <span th:text="${board.content}"></span></p>
     <hr>

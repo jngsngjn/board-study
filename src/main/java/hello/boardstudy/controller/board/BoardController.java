@@ -70,7 +70,8 @@ public class BoardController {
     @PostMapping("/write")
     public String write(@Validated @ModelAttribute WriteForm writeForm,
                         BindingResult bindingResult,
-                        @AuthenticationPrincipal CustomUserDetails userDetails) {
+                        @AuthenticationPrincipal CustomUserDetails userDetails,
+                        RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
             log.info("오류={}", bindingResult.getAllErrors());
@@ -78,6 +79,7 @@ public class BoardController {
         }
 
         boardService.writeBoard(writeForm, userDetails.getUserId());
+        redirectAttributes.addFlashAttribute("writeMessage", "게시글이 등록되었습니다.");
         return "redirect:/boards";
     }
 
@@ -112,13 +114,15 @@ public class BoardController {
         }
 
         redirectAttributes.addAttribute(boardId);
+        redirectAttributes.addFlashAttribute("editMessage", "게시글이 수정되었습니다.");
         return "redirect:/boards/{boardId}";
     }
 
     // 글 삭제
     @DeleteMapping("/{boardId}/delete")
-    public String deleteOne(@PathVariable Integer boardId) {
+    public String deleteOne(@PathVariable Integer boardId, RedirectAttributes redirectAttributes) {
         boardService.delete(boardId);
+        redirectAttributes.addFlashAttribute("deleteMessage", "게시글이 삭제되었습니다.");
         return "redirect:/boards";
     }
 }

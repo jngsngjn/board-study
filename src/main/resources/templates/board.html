@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
     <title>게시판</title>
     <link rel="stylesheet" type="text/css" href="/css/board.css">
+    <script src="/js/board.js"></script>
 </head>
 <body>
 <div class="container">
@@ -64,12 +65,17 @@
         </ul>
     </div>
 </div>
+<script th:src="@{/js/board.js}"></script>
 <script th:inline="javascript">
     /*<![CDATA[*/
     var welcome = [[${param.welcome}]];
-    if (welcome) {
-        alert("회원가입을 환영합니다!");
-    }
+    showWelcomeMessage(welcome);
+
+    var deleteMessage = /*[[${deleteMessage}]]*/ null;
+    showDeleteMessage(deleteMessage);
+
+    var writeMessage = /*[[${writeMessage}]]*/ null;
+    showWriteMessage(writeMessage);
     /*]]>*/
 </script>
 </body>
