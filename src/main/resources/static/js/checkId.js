@@ -11,6 +11,14 @@ function checkDuplicate() {
         return;
     }
 
+    // 영문 6자리 아이디 검사
+    const idRegex = /^[a-zA-Z]{6,15}$/;
+    if (!idRegex.test(loginId)) {
+        alert("아이디는 영문 6자리 이상 15자리 이하로 입력해주세요.");
+        duplicateChecked = false;
+        return;
+    }
+
     $.ajax({
         url: "/register/check-duplicate-id",
         type: "POST",

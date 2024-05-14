@@ -3,11 +3,16 @@
     <meta charset="UTF-8">
     <title>로그인</title>
     <link rel="stylesheet" type="text/css" href="/css/login.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/login.js"></script>
 </head>
 <body>
-<form action="/login" method="post">
-    <input type="text" name="username" placeholder="아이디" autofocus> <br>
-    <input type="password" name="password" placeholder="비밀번호">
+<form id="loginForm" action="/login" method="post">
+    <div th:if="${param.error}" class="error-message">
+        아이디 또는 비밀번호를 확인해주세요.
+    </div>
+    <input type="text" id="username" name="username" placeholder="아이디" autofocus> <br>
+    <input type="password" id="password" name="password" placeholder="비밀번호">
     <input type="hidden" name="_csrf" th:value="${_csrf.token}"/> <br>
     <button type="submit">로그인</button>
     <a href="/boards">뒤로 가기</a>

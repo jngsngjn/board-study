@@ -33,6 +33,8 @@ public class SecurityConfig {
                 // 로그인 처리 경로 (POST)
                 .loginProcessingUrl("/login")
 
+                .failureUrl("/login?error=true")
+
                 // 로그인 성공 시 경로 (GET)
                 .defaultSuccessUrl("/boards", true)
                 .permitAll()

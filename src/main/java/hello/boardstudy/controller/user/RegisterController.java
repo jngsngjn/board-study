@@ -50,9 +50,10 @@ public class RegisterController {
         return "redirect:/boards";
     }
 
-    @PostMapping("/check-duplicate-id")
     @ResponseBody
+    @PostMapping("/check-duplicate-id")
     public boolean checkDuplicateId(@RequestParam String loginId) {
+
         return !userService.isDuplicateId(loginId);
     }
 }
