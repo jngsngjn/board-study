@@ -47,7 +47,7 @@ public class RegisterController {
             return "registerForm";
         }
 
-        return "redirect:/boards";
+        return "redirect:/boards?welcome=true";
     }
 
     @ResponseBody

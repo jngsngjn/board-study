@@ -64,5 +64,13 @@
         </ul>
     </div>
 </div>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var welcome = [[${param.welcome}]];
+    if (welcome) {
+        alert("회원가입을 환영합니다!");
+    }
+    /*]]>*/
+</script>
 </body>
 </html>
