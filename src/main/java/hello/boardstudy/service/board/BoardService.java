@@ -1,7 +1,7 @@
 package hello.boardstudy.service.board;
 
 import hello.boardstudy.entity.board.Board;
-import hello.boardstudy.form.BoardForm;
+import hello.boardstudy.form.WriteForm;
 import hello.boardstudy.entity.board.BoardList;
 import hello.boardstudy.entity.board.BoardOne;
 import hello.boardstudy.repository.board.BoardRepository;
@@ -37,23 +37,22 @@ public class BoardService {
         boardRepository.incrementViewCount(boardId);
     }
 
-    // 글 쓰기
-    public void writeBoard(BoardForm boardForm) {
+    public void writeBoard(WriteForm writeForm, Integer authorId) {
         Board board = new Board();
-        board.setTitle(boardForm.getTitle());
-        board.setContent(boardForm.getContent());
-        board.setAuthorId(boardForm.getAuthorId());
+        board.setTitle(writeForm.getTitle());
+        board.setContent(writeForm.getContent());
+        board.setAuthorId(authorId);
 
         boardRepository.save(board);
     }
 
     // 글 수정
-    public void updateBoard(Integer boardId, BoardForm boardForm) {
+    public void updateBoard(Integer boardId, WriteForm writeForm) {
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new RuntimeException("Board not found"));
 
-        board.setTitle(boardForm.getTitle());
-        board.setContent(boardForm.getContent());
+        board.setTitle(writeForm.getTitle());
+        board.setContent(writeForm.getContent());
 
         boardRepository.save(board);
     }

@@ -1,15 +1,19 @@
 package hello.boardstudy.controller.board;
 
-import hello.boardstudy.form.BoardForm;
 import hello.boardstudy.entity.board.BoardOne;
+import hello.boardstudy.form.WriteForm;
 import hello.boardstudy.security.CustomUserDetails;
 import hello.boardstudy.service.board.BoardService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+@Slf4j
 @Controller
 @RequestMapping("/boards")
 public class BoardController {
@@ -58,16 +62,22 @@ public class BoardController {
     // 글쓰기 페이지 조회
     @GetMapping("/write")
     public String writeForm(Model model) {
-        model.addAttribute("writeForm", new BoardForm());
+        model.addAttribute("writeForm", new WriteForm());
         return "writeForm";
     }
 
     // 글쓰기
     @PostMapping("/write")
-    public String write(@ModelAttribute BoardForm boardForm,
+    public String write(@Validated @ModelAttribute WriteForm writeForm,
+                        BindingResult bindingResult,
                         @AuthenticationPrincipal CustomUserDetails userDetails) {
-        boardForm.setAuthorId(userDetails.getUserId());
-        boardService.writeBoard(boardForm);
+
+        if (bindingResult.hasErrors()) {
+            log.info("오류={}", bindingResult.getAllErrors());
+            return "writeForm";
+        }
+
+        boardService.writeBoard(writeForm, userDetails.getUserId());
         return "redirect:/boards";
     }
 
@@ -75,14 +85,28 @@ public class BoardController {
     @GetMapping("/{boardId}/edit")
     public String editForm(@PathVariable Integer boardId, Model model) {
         BoardOne board = boardService.findBoardOne(boardId);
-        model.addAttribute("board", board);
+
+        WriteForm writeForm = new WriteForm();
+        writeForm.setTitle(board.getTitle());
+        writeForm.setContent(board.getContent());
+
+        model.addAttribute("writeForm", writeForm);
+        model.addAttribute("boardId", boardId);
         return "editForm";
     }
 
     // 글 수정
     @PutMapping("/{boardId}/edit")
-    public String edit(@PathVariable Integer boardId, @ModelAttribute BoardForm boardForm, RedirectAttributes redirectAttributes) {
-        boardService.updateBoard(boardId, boardForm);
+    public String edit(@PathVariable Integer boardId,
+                       @Validated @ModelAttribute WriteForm writeForm,
+                       BindingResult bindingResult,
+                       RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            return "editForm";
+        }
+
+        boardService.updateBoard(boardId, writeForm);
 
         redirectAttributes.addAttribute(boardId);
         return "redirect:/boards/{boardId}";
@@ -94,4 +118,6 @@ public class BoardController {
         boardService.delete(boardId);
         return "redirect:/boards";
     }
+
+
 }

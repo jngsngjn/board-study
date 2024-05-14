@@ -7,10 +7,13 @@
 <body>
 <h2>게시글 작성</h2>
 <hr>
-<form action="/boards/write" method="post" th:object="${writeForm}">
-    <input type="text" th:field="*{title}" placeholder="제목"> <br>
-    <textarea th:field="*{content}" rows="10" placeholder="내용"></textarea> <br>
-    <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+<form th:action="@{/boards/write}" method="post" th:object="${writeForm}">
+    <input type="text" th:field="*{title}" placeholder="제목">
+    <div class="error" th:errors="*{title}"></div> <br>
+
+    <textarea th:field="*{content}" rows="10" placeholder="내용"></textarea>
+    <div class="error" th:errors="*{content}"></div> <br>
+
     <div>
         <button type="submit">등록</button>
         <a href="/boards">취소</a>
