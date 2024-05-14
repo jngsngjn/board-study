@@ -47,14 +47,19 @@ public class BoardService {
     }
 
     // 글 수정
-    public void updateBoard(Integer boardId, WriteForm writeForm) {
+    public boolean updateBoard(Integer boardId, WriteForm writeForm) {
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new RuntimeException("Board not found"));
+
+        if (board.getTitle().equals(writeForm.getTitle()) && board.getContent().equals(writeForm.getContent())) {
+            return false;
+        }
 
         board.setTitle(writeForm.getTitle());
         board.setContent(writeForm.getContent());
 
         boardRepository.save(board);
+        return true;
     }
 
     // 글 삭제

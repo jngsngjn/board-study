@@ -106,7 +106,10 @@ public class BoardController {
             return "editForm";
         }
 
-        boardService.updateBoard(boardId, writeForm);
+        if (!boardService.updateBoard(boardId, writeForm)) {
+            bindingResult.reject("noChange");
+            return "editForm";
+        }
 
         redirectAttributes.addAttribute(boardId);
         return "redirect:/boards/{boardId}";
@@ -118,6 +121,4 @@ public class BoardController {
         boardService.delete(boardId);
         return "redirect:/boards";
     }
-
-
 }

@@ -16,6 +16,8 @@
     <textarea rows="10" th:field="*{content}" placeholder="내용"></textarea>
     <div class="error" th:errors="*{content}"></div> <br>
 
+    <div th:if="${#fields.hasErrors('global')}" th:errors="*{global}" class="error-message"></div>
+
     <div>
         <button type="submit">수정</button>
         <a href="/boards">취소</a>
