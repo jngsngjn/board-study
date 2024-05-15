@@ -1,5 +1,8 @@
 package hello.boardstudy.config;
 
+import hello.boardstudy.security.CustomAuthenticationFailureHandler;
+import hello.boardstudy.security.CustomAuthenticationSuccessHandler;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,7 +12,11 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
+
+    private final CustomAuthenticationSuccessHandler authenticationSuccessHandler;
+    private final CustomAuthenticationFailureHandler authenticationFailureHandler;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -21,7 +28,9 @@ public class SecurityConfig {
                 .requestMatchers("/boards/write", "/boards/{boardId}/delete", "/boards/{boardId}/edit").authenticated()
 
                 // 게시판 페이지, 특정 게시글, 회원가입 -> 모든 사용자
-                .requestMatchers("/boards", "/boards/{boardId}", "/register/**", "/send-verification-email", "/verify/**", "/verifyError").permitAll()
+                .requestMatchers("/login", "/boards", "/boards/{boardId}", "/register/**", "/send-verification-email",
+                        "/verify/**", "/verifyError").permitAll()
+
                 .anyRequest().authenticated()
         );
 
@@ -32,11 +41,9 @@ public class SecurityConfig {
 
                 // 로그인 처리 경로 (POST)
                 .loginProcessingUrl("/login")
+                .successHandler(authenticationSuccessHandler)
+                .failureHandler(authenticationFailureHandler)
 
-                .failureUrl("/login?error=true")
-
-                // 로그인 성공 시 경로 (GET)
-                .defaultSuccessUrl("/boards", true)
                 .permitAll()
         );
 

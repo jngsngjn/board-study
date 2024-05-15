@@ -6,17 +6,26 @@
     <script src="/js/login.js"></script>
 </head>
 <body>
-<form id="loginForm" action="/login" method="post" onsubmit="return validateForm()">
-    <div id="serverError" th:if="${param.error}" style="color: red">
-        아이디 또는 비밀번호가 맞지 않습니다.
+<form id="loginForm" action="/login" method="post">
+    <div id="loginError" style="color: red">
+        <div th:if="${param.error != null and param.error[0] eq 'true'}">
+            비밀번호가 맞지 않습니다. <br>
+            <span th:if="${param.remainingAttempts != null}">
+            (계정 잠금까지 <span th:text="${param.remainingAttempts[0]}"></span>회 남았습니다.)
+            </span>
+        </div>
+
+        <div th:if="${param.error != null and param.error[0] eq 'locked'}">계정이 잠겨 있습니다. 관리자에게 문의하세요.</div>
+<!--        <div th:if="${param.error != null and param.error[0] eq 'notFound'}">등록되지 않은 계정입니다.</div>-->
+        <div th:if="${session.notFound}" th:text="${session.notFound}"></div>
     </div>
-    <div id="inputError" style="color: red"></div>
+    <div id="emptyError" style="color: red"></div>
+
     <input type="text" id="username" name="username" placeholder="아이디" autofocus> <br>
     <input type="password" id="password" name="password" placeholder="비밀번호">
     <input type="hidden" name="_csrf" th:value="${_csrf.token}"/> <br>
     <button type="submit">로그인</button>
     <a href="/boards">뒤로 가기</a>
 </form>
-
 </body>
 </html>

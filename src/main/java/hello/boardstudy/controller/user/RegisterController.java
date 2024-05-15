@@ -3,7 +3,7 @@ package hello.boardstudy.controller.user;
 import hello.boardstudy.form.RegisterForm;
 import hello.boardstudy.service.email.EmailService;
 import hello.boardstudy.service.user.UserService;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Slf4j
 @Controller
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("/register")
 public class RegisterController {
 
