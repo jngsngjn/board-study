@@ -3,25 +3,23 @@ package hello.boardstudy.controller.user;
 import hello.boardstudy.form.RegisterForm;
 import hello.boardstudy.service.email.EmailService;
 import hello.boardstudy.service.user.UserService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Slf4j
 @Controller
+@AllArgsConstructor
 @RequestMapping("/register")
 public class RegisterController {
 
     private final UserService userService;
     private final EmailService emailService;
-
-    public RegisterController(UserService userService, EmailService emailService) {
-        this.userService = userService;
-        this.emailService = emailService;
-    }
 
     @GetMapping
     public String registerForm(Model model) {
@@ -30,7 +28,9 @@ public class RegisterController {
     }
 
     @PostMapping
-    public String register(@Validated @ModelAttribute RegisterForm registerForm, BindingResult bindingResult) {
+    public String register(@Validated @ModelAttribute RegisterForm registerForm,
+                           BindingResult bindingResult,
+                           RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
             log.info("필드 에러");
@@ -47,7 +47,8 @@ public class RegisterController {
             return "registerForm";
         }
 
-        return "redirect:/boards?welcome=true";
+        redirectAttributes.addFlashAttribute("welcomeMessage", "회원가입을 환영합니다.");
+        return "redirect:/boards";
     }
 
     @ResponseBody
