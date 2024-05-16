@@ -29,7 +29,7 @@ function checkDuplicate() {
         success: function(response) {
             if (response) {
                 if (confirm("사용 가능한 아이디입니다. 사용하시겠습니까?")) {
-                    // 사용 버튼을 클릭한 경우 추가 작업 수행
+                    // 사용 버튼을 클릭한 경우
                     $("#loginId").prop("readonly", true);
                     $("#duplicateCheckButton").hide();
                     $("#changeButton").show();

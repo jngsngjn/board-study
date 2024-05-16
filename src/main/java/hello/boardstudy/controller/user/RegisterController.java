@@ -54,7 +54,6 @@ public class RegisterController {
     @ResponseBody
     @PostMapping("/check-duplicate-id")
     public boolean checkDuplicateId(@RequestParam String loginId) {
-
         return !userService.isDuplicateId(loginId);
     }
 }
